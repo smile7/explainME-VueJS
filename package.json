@@ -1,0 +1,19 @@
+{
+  "name": "explainME",
+  "version": "1.0.0",
+  "description": "My unreal Nuxt.js project",
+  "author": "Smile",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "nuxt": "^2.9.2"
+  },
+  "devDependencies": {}
+}
