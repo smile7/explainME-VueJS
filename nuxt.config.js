@@ -1,6 +1,10 @@
 
 export default {
   mode: 'spa',
+  server: {
+    port: 8000, // default: 3000
+    host: 'localhost' // default: localhost
+  },
   /*
   ** Headers of the page
   */
@@ -18,16 +22,15 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#000' },
   /*
   ** Global CSS
   */
-  css: ['~/assets/styles/main.css'],
+  css: ['~/assets/styles/main.scss'],
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  plugins: [{ src: '~/plugins/localStorage.js', ssr: false }],
   /*
   ** Nuxt.js dev-modules
   */
@@ -39,7 +42,14 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
+    '@nuxtjs/style-resources'
   ],
+
+  styleResources: {
+    scss: [
+      '~/assets/styles/variables.scss',
+    ]
+  },
   /*
   ** Build configuration
   */

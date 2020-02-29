@@ -1,0 +1,83 @@
+/* ----- BASIC ----- */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+@font-face {
+    font-family: "Cormorant";
+    src: url("/assets/fonts/Cormorant-Regular.ttf");
+    font-family: "Amatic SC";
+    src: url("/assets/fonts/Cormorant-Regular.ttf");
+}
+
+body {
+    margin-bottom: 30px;
+    background-color: $bg-color;
+    font-family: "Cormorant", serif;
+}
+
+.container {
+    max-width: 1560px;
+}
+
+.content {
+    margin-top: 75px;
+}
+
+a, a:active, a:visited {
+    color: inherit;
+    outline: none;
+}
+
+.inp {
+    display: block;
+}
+
+.btn {
+    border: 1px solid $main-color;
+    color: $main-color;
+    padding: 6px 40px;
+}
+.btn:hover {
+    background: $main-color;
+    color: $white;
+    transition: 0.4s;
+    opacity: 0.9;
+}
+
+.btn.btn-big {
+    color: $black;
+    border: 1px solid $black;
+    width: 400px;
+    height: 60px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    font-size: $font-size-biggest;
+}
+.btn.btn-big:hover {
+    background: $white;
+}
+
+.colorblue { color: $dark-blue; }
+
+/* ----- TEAMS ----- */
+
+.add-players-box {
+    height: 300px;
+    border: 1px solid $dark-blue;
+    padding: 30px;
+    width: 550px;
+}
+
+.players-names {
+    font-size: $font-size-big;
+    overflow: hidden;
+}
+
+/* ----- GAMEPLAY ----- */
+
+#word {
+    font-family: "Amatic SC", cursive;
+}
