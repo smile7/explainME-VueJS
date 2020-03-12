@@ -13,8 +13,14 @@ html {
 }
 
 body {
+    height: 100%;
     margin-bottom: 30px;
-    background-color: $bg-color;
+    background-image: url("../../static/images/bg.jpg");
+    background-color: #ebebe0;
+    background-blend-mode: multiply;
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;    
     font-family: "Cormorant", serif;
 }
 
@@ -23,7 +29,7 @@ body {
 }
 
 .content {
-    margin-top: 75px;
+    margin-top: 50px;
 }
 
 a, a:active, a:visited {
@@ -36,15 +42,25 @@ a, a:active, a:visited {
 }
 
 .btn {
-    border: 1px solid $main-color;
-    color: $main-color;
+    /* background-color: $light-blue; */
+    background: $light-blue;
+    border: 1px solid $dark-blue;
+    border-radius: $border-radius;
+    color: $dark-blue;
     padding: 6px 40px;
 }
 .btn:hover {
-    background: $main-color;
-    color: $white;
+    background: $white;
+    color: $dark-blue; 
     transition: 0.4s;
     opacity: 0.9;
+}
+
+.bigger-btn {
+    font-size: $font-size-big;
+    text-transform: uppercase;
+    width: 200px;
+    padding: 15px;
 }
 
 .btn.btn-big {
@@ -60,23 +76,18 @@ a, a:active, a:visited {
     background: $white;
 }
 
+h1 { margin-bottom: 80px; }
+
+.navbar, .nav-item:last-of-type .nav-link { padding-right: 0; }
+
 .colorblue { color: $dark-blue; }
 
-/* ----- TEAMS ----- */
-
-.add-players-box {
-    height: 300px;
-    border: 1px solid $dark-blue;
-    padding: 30px;
-    width: 550px;
+.close {
+    cursor: pointer;
+    font-size: $font-size-small;
+    position: absolute;
+    right: 15px;
 }
-
-.players-names {
-    font-size: $font-size-big;
-    overflow: hidden;
-}
-
-/* ----- GAMEPLAY ----- */
 
 #word {
     font-family: "Amatic SC", cursive;

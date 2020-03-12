@@ -44,6 +44,9 @@
                   <h4 class="colorblue">ТОВА Е! ЗАБАВАЛЯВАЙТЕ СЕ :) </h4>
                 </div>
                 <img src="../static/images/joey.jpg">
+                <div class="iframe">
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/DpRfq7xHstg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
               </div>
             </div>
         </div>
@@ -109,6 +112,8 @@ img {
   margin: 30px 0 10px;
   text-decoration: underline;
 }
+
+.iframe { margin-bottom: 50px; }
 
 </style>
 

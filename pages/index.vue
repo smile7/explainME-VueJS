@@ -15,9 +15,9 @@ import { mapState } from 'vuex'
 
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer'
-import TeamInput from '~/components/Game/PreGame/TeamInput.vue'
-import AddWords from '~/components/Game/PreGame/AddWords.vue'
-import Game from '~/components/Game/DuringGame/Game.vue'
+import TeamInput from '~/components/Game/TeamInput.vue'
+import AddWords from '~/components/Game/AddWords.vue'
+import Game from '~/components/Game/Game.vue'
 
 export default {
   components: {

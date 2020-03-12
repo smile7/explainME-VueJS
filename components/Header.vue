@@ -44,7 +44,9 @@ export default {};
 
 <style lang="scss" scoped>
 .header {
-  background-image: url("../static/images/header-bg.png");
+  /* background-image: url("../static/images/header-bg.png"); */
+  background: rgb(48,46,75);
+  background: linear-gradient(90deg, rgba(48,46,75,1) 0%, rgba(89,149,158,1) 0%, rgba(34,68,133,1) 0%, rgba(89,149,158,1) 100%);
   height: 60px;
 }
 
