@@ -22,6 +22,7 @@ body {
     background-repeat: no-repeat;
     background-size: 100% 100%;    
     font-family: "Cormorant", serif;
+    font-size: calc(1em + 0.5vw);
 }
 
 .container {
@@ -37,7 +38,7 @@ a, a:active, a:visited {
     outline: none;
 }
 
-.inp {
+.form-control {
     display: block;
 }
 
@@ -48,6 +49,7 @@ a, a:active, a:visited {
     border-radius: $border-radius;
     color: $dark-blue;
     padding: 6px 40px;
+    font-size: inherit;
 }
 .btn:hover {
     background: $white;
@@ -78,8 +80,6 @@ a, a:active, a:visited {
 
 h1 { margin-bottom: 80px; }
 
-.navbar, .nav-item:last-of-type .nav-link { padding-right: 0; }
-
 .colorblue { color: $dark-blue; }
 
 .close {
@@ -89,6 +89,7 @@ h1 { margin-bottom: 80px; }
     right: 15px;
 }
 
-#word {
-    font-family: "Amatic SC", cursive;
-}
+.v--modal-overlay { background: rgba(0, 0, 0, 0.4) !important; }
+.vue-dialog .dialog-content { text-align: center; }
+.vue-dialog .dialog-c-text { font-weight: bold; }
+

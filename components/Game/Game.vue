@@ -3,19 +3,24 @@
     <div v-if="!isGameFinished" class="row">
       <div class="col-12 text-center">
         <div class="heading">
-          Рунд <span class="round">{{ round }}</span>
+          <div>Рунд {{ round }}</div>
+          <div>{{ teams[currentTeam].player1 }} и {{ teams[currentTeam].player2 }} са на ход</div>
         </div>
       </div>
-      <div class="col-6" id="game-field">
-        <div class="players-turn text-center">
-          <p>{{ teams[currentTeam].player1 }} и {{ teams[currentTeam].player2 }} са на ход</p>
-        </div>
+      <div class="col-lg-6 col-12" id="game-field">
         <div id="word" class="word-holder">
           <span v-if="isTimeRunning">{{ randomWord }}</span>
           <span v-else>- - - - - - - -</span>
         </div>
         <div class="timer text-center" id="timer">
-          <span v-if="isTimeRunning" id="timer-inside" class="circle">{{ timer }}</span>
+          <span
+            v-if="isTimeRunning"
+            id="timer-inside"
+            class="circle"
+            :class="{ paused: isPaused}"
+          >
+            {{ timer }}
+          </span>
           <span v-else></span>
         </div>
         <div class="buttons">
@@ -23,14 +28,14 @@
           <button v-else class="btn" @click="isPaused = !isPaused">Пауза / Продължи</button>
         </div>
       </div>
-      <div class="offset-2 col-4">
+      <div class="offset-xl-2 col-xl-4 col-lg-6 col-12">
         <TablePlayers></TablePlayers>
-        <button class="btn new-game" @click="newGame">Нова игра</button>
-        <!-- add modal "Are you sure you want to start new game?" -->
+        <button class="btn new-game" @click="showModal">Нова игра</button>
+        <v-dialog />
       </div>
     </div>
     <div v-else class="row">
-      <div class="col-4 m-auto">
+      <div class="col-xl-4 col-lg-6 col-md-8 col-12 m-auto">
         <Standing></Standing>
       </div>
     </div>
@@ -40,7 +45,7 @@
 <script>
 import { mapState } from "vuex";
 import Standing from "~/components/Game/Standing.vue";
-import TablePlayers from "~/components/Game/TablePlayers.vue"
+import TablePlayers from "~/components/Game/TablePlayers.vue";
 
 export default {
   components: {
@@ -68,6 +73,20 @@ export default {
     ])
   },
   methods: {
+    showModal() {
+      this.$modal.show("dialog", {
+        title: "Сигурни ли сте, че искате да започнете нова игра?",
+        buttons: [
+          {
+            title: "Да",
+            handler: () => {
+              this.$store.commit("clearAllData");
+            }
+          },
+          { title: "Не" }
+        ]
+      });
+    },
     wordGuessed(teamNumber) {
       // check if game is running -> teams can receive points
       if (!this.isPaused && this.isTimeRunning) {
@@ -139,9 +158,6 @@ export default {
         ];
       }
     },
-    newGame() {
-      this.$store.commit("clearAllData");
-    }
   },
   // handle points when SPACE and ESC are clicked
   mounted() {
@@ -167,25 +183,20 @@ export default {
   border-bottom: 2px solid $black;
   margin-bottom: 50px;
   display: inline-block;
-
-  .round {
-    font-size: $font-size-biggest;
-  }
-}
-
-.players-turn {
-  font-size: $font-size-big;
-  margin-bottom: 20px;
 }
 
 #word {
+  font-family: "Amatic SC", cursive;
   width: 100%;
   height: 350px;
-  border: 1px solid $dark-blue;
+  background: $light-blue-opacity-50;
+  border: 2px double $dark-blue;
   font-size: $font-size-words;
   padding: 20px;
   text-align: center;
-  line-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttons {
@@ -211,6 +222,10 @@ export default {
     line-height: 140px;
     border: 5px solid;
   }
+
+  .circle.paused {
+    color: #ccc;
+  }
 }
 
 .players {
@@ -232,7 +247,20 @@ export default {
 }
 
 .new-game {
-  margin-top: 170px;
+  margin-top: 150px;
+  margin-bottom: 30px;
   float: right;
+}
+
+@media screen and (max-width: 576px) {
+  .buttons .btn { margin: 0; }
+  #word { font-size: 40px; }
+  .new-game {
+    display: block;
+    float: none;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 30px;
+  }
 }
 </style>

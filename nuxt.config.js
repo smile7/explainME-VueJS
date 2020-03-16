@@ -30,7 +30,10 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [{ src: '~/plugins/localStorage.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/localStorage.js', ssr: false },
+    { src: '~/plugins/modal.js'}
+  ],
   /*
   ** Nuxt.js dev-modules
   */

@@ -49,7 +49,14 @@ export default {
   }
 
   tbody tr:nth-of-type(2n + 1) {
-    background-color: rgba(224, 244, 253, 0.5);
+    background-color: $light-blue-opacity-50;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 12px !important;
   }
 }
 </style>
