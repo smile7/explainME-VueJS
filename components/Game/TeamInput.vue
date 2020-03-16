@@ -20,7 +20,7 @@
         <button class="btn" @click="shuffleTeams">Разбъркай отборите</button>
       </div>
       <div class="shuffle-btn">
-        <button class="btn bigger-btn" @click="submit">Готово</button>
+        <button class="btn bigger-btn mb-5" @click="submit">Готово</button>
       </div>
     </div>
     <div class="offset-xl-2 col-xl-4 col-md-6 col-12 players">
@@ -129,7 +129,7 @@ input {
 
 .shuffle-btn {
   width: 550px;
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .player-name {
@@ -147,11 +147,9 @@ input {
 }
 
 @media screen and (max-width: 1200px) {
-  .add-players-box {
-    width: 100%;
-  }
+  .add-players-box,
   .shuffle-btn {
-    width: 100%; 
+    width: 100%;
   }
 }
 

@@ -7,7 +7,7 @@
           <div>{{ teams[currentTeam].player1 }} и {{ teams[currentTeam].player2 }} са на ход</div>
         </div>
       </div>
-      <div class="col-lg-6 col-12" id="game-field">
+      <div class="col-lg-6 col-12" id="game-field" v-touch:tap="touchHandler" v-touch:swipe="swipeHandler">
         <div id="word" class="word-holder">
           <span v-if="isTimeRunning">{{ randomWord }}</span>
           <span v-else>- - - - - - - -</span>
@@ -25,7 +25,7 @@
         </div>
         <div class="buttons">
           <button v-if="!isTimeRunning" class="btn btn-big" @click="startTimer">Старт</button>
-          <button v-else class="btn" @click="isPaused = !isPaused">Пауза / Продължи</button>
+          <button v-else class="btn mb-5" @click="isPaused = !isPaused">Пауза / Продължи</button>
         </div>
       </div>
       <div class="offset-xl-2 col-xl-4 col-lg-6 col-12">
@@ -138,14 +138,26 @@ export default {
       let nextRound = currentFinishedRound + 1;
 
       if (currentFinishedRound < 3) {
-        alert("Рунд " + currentFinishedRound + " завърши!");
+        this.$modal.show("dialog", {
+          text: "Рунд " + currentFinishedRound + " завърши!",
+          buttons: [{ title: "OK" }]
+        });
         this.$store.commit("updateRound", nextRound);
         // fill in the array with all words
         this.notGuessedWords = this.allWords.slice();
       } else if (currentFinishedRound == 3) {
-        alert("Играта приключи!");
-        this.$store.commit("updateIsGameFinished", true);
-        this.$store.commit("calcWinners");
+        this.$modal.show("dialog", {
+          text: "Играта приключи!",
+          buttons: [
+            {
+              title: "OK",
+              handler: () => {
+                this.$store.commit("updateIsGameFinished", true);
+                this.$store.commit("calcWinners");
+              }
+            }
+          ]
+        });
       }
     },
     generateNotGuessedWord() {
@@ -158,6 +170,12 @@ export default {
         ];
       }
     },
+    touchHandler() {
+      this.wordGuessed(this.currentTeam)
+    },
+    swipeHandler() {
+      this.wordSkipped(this.currentTeam)
+    }
   },
   // handle points when SPACE and ESC are clicked
   mounted() {
@@ -166,6 +184,7 @@ export default {
       e.preventDefault();
       // key: space
       if (e.keyCode == 32) {
+        e.preventDefault()
         self.wordGuessed(self.currentTeam);
       }
       // key: escape

@@ -6,7 +6,7 @@
       <div v-if="!isCustomWords" class="col-12 text-center">
         <p>Искате ли да използвате готови думи за цялата игра и да избегнете писането?</p>
         <button class="btn mr-sm-5 mb-sm-0 mt-sm-3 mb-4 mt-5" @click="usePredefinedWords">Готови думи</button>
-        <button class="btn mt-sm-3" @click="customWords">Въвеждане</button>
+        <button class="btn mt-sm-3 mb-4 mb-sm-0" @click="customWords">Въвеждане</button>
       </div>
       <div v-else class="col-12 text-center">
         <h3 id="turn">Ред е на {{ players[currPlayerNum] }}:</h3>
@@ -20,7 +20,7 @@
           v-on:keyup.enter="triggerAdd"
           v-model="word"
         />
-        <button class="btn mt-5" ref="addW" @click="addWords(word)">Добави думата</button>
+        <button class="btn mt-5 mb-5" ref="addW" @click="addWords(word)">Добави думата</button>
       </div>
     </div>
   </div>

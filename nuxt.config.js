@@ -32,7 +32,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/localStorage.js', ssr: false },
-    { src: '~/plugins/modal.js'}
+    { src: '~/plugins/modal.js'},
+    { src: '~/plugins/touchEvents.js'}
   ],
   /*
   ** Nuxt.js dev-modules
