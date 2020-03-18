@@ -7,21 +7,37 @@
           <div>{{ teams[currentTeam].player1 }} и {{ teams[currentTeam].player2 }} са на ход</div>
         </div>
       </div>
-      <div class="col-lg-6 col-12" id="game-field" v-touch:tap="touchHandler" v-touch:swipe="swipeHandler">
-        <div id="word" class="word-holder">
-          <span v-if="isTimeRunning">{{ randomWord }}</span>
+      <div class="col-lg-6 col-12" id="game-field">
+        <div
+          id="word"
+          class="word-holder"
+          v-touch:tap="touchHandler"
+          v-touch:swipe="swipeHandler"
+        >
+          <span v-if="isTimeRunning & !isPaused">{{ randomWord }}</span>
+          <span v-else-if="isTimeRunning & isPaused">- - - - - - - -</span>
           <span v-else>- - - - - - - -</span>
         </div>
-        <div class="timer text-center" id="timer">
-          <span
+        <div class="timer text-center mt-5" id="timer">
+          <circular-count-down-timer
             v-if="isTimeRunning"
-            id="timer-inside"
-            class="circle"
-            :class="{ paused: isPaused}"
+            :initial-value="timer"
+            :stroke-width="7"
+            :seconds-stroke-color="'#f00'"
+            :underneath-stroke-color="'lightgrey'"
+            :seconds-fill-color="'rgba(224, 244, 253, 0.5)'"
+            :size="200"
+            :padding="4"
+            :second-label="''"
+            :show-second="true"
+            :show-minute="false"
+            :show-hour="false"
+            :show-negatives="false"
+            :paused="isPaused"
+            :notify-every="'none'"
+            @finish="finished"
           >
-            {{ timer }}
-          </span>
-          <span v-else></span>
+          </circular-count-down-timer>
         </div>
         <div class="buttons">
           <button v-if="!isTimeRunning" class="btn btn-big" @click="startTimer">Старт</button>
@@ -54,9 +70,9 @@ export default {
   },
   data() {
     return {
-      timer: 5,
+      timer: 30,
       isTimeRunning: false,
-      isPaused: false,
+      isPaused: true,
       randomWord: "",
       allWords: JSON.parse(JSON.stringify(this.$store.state.words)),
       notGuessedWords: JSON.parse(JSON.stringify(this.$store.state.words))
@@ -73,6 +89,11 @@ export default {
     ])
   },
   methods: {
+    finished() {
+      this.isTimeRunning = false;
+      this.switchTurns();
+      this.timer = 30;
+    },
     showModal() {
       this.$modal.show("dialog", {
         title: "Сигурни ли сте, че искате да започнете нова игра?",
@@ -90,11 +111,9 @@ export default {
     wordGuessed(teamNumber) {
       // check if game is running -> teams can receive points
       if (!this.isPaused && this.isTimeRunning) {
+        console.log('executed')
         this.$store.commit("wordGuessed", teamNumber);
-        this.notGuessedWords.splice(
-          this.notGuessedWords.indexOf(this.randomWord),
-          1
-        );
+        this.notGuessedWords.splice(this.notGuessedWords.indexOf(this.randomWord), 1);
         this.generateNotGuessedWord();
       }
     },
@@ -113,24 +132,10 @@ export default {
         this.$store.commit("updateCurrentTeam", currTeamNum);
       }
     },
-    countDown(timer) {
-      let sinterval = setInterval(() => {
-        if (!this.isPaused) {
-          if (timer <= 0 || !this.isTimeRunning) {
-            this.isTimeRunning = false;
-            this.switchTurns();
-            clearInterval(sinterval);
-          } else {
-            document.getElementById("timer-inside").innerHTML = timer;
-          }
-          timer--;
-        }
-      }, 1000);
-    },
     startTimer() {
-      this.generateNotGuessedWord();
+      this.isPaused = false;
       this.isTimeRunning = true;
-      this.countDown(this.timer);
+      this.generateNotGuessedWord();
     },
     startNewRound() {
       this.isTimeRunning = false;
@@ -143,6 +148,7 @@ export default {
           buttons: [{ title: "OK" }]
         });
         this.$store.commit("updateRound", nextRound);
+        this.switchTurns();
         // fill in the array with all words
         this.notGuessedWords = this.allWords.slice();
       } else if (currentFinishedRound == 3) {
@@ -171,10 +177,10 @@ export default {
       }
     },
     touchHandler() {
-      this.wordGuessed(this.currentTeam)
+      this.wordGuessed(this.currentTeam);
     },
     swipeHandler() {
-      this.wordSkipped(this.currentTeam)
+      this.wordSkipped(this.currentTeam);
     }
   },
   // handle points when SPACE and ESC are clicked
@@ -184,7 +190,7 @@ export default {
       e.preventDefault();
       // key: space
       if (e.keyCode == 32) {
-        e.preventDefault()
+        e.preventDefault();
         self.wordGuessed(self.currentTeam);
       }
       // key: escape
@@ -220,30 +226,10 @@ export default {
 
 .buttons {
   text-align: center;
-  margin: 60px 0;
 
   .btn {
     margin: 0 20px;
     width: 300px;
-  }
-}
-
-.timer {
-  font-size: $font-size-words;
-  margin: 40px;
-
-  .circle {
-    background: $light-blue;
-    border-radius: 50%;
-    width: 140px;
-    height: 140px;
-    display: inline-block;
-    line-height: 140px;
-    border: 5px solid;
-  }
-
-  .circle.paused {
-    color: #ccc;
   }
 }
 
@@ -272,8 +258,12 @@ export default {
 }
 
 @media screen and (max-width: 576px) {
-  .buttons .btn { margin: 0; }
-  #word { font-size: 40px; }
+  .buttons .btn {
+    margin: 0;
+  }
+  #word {
+    font-size: 40px;
+  }
   .new-game {
     display: block;
     float: none;

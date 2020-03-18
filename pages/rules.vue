@@ -45,7 +45,7 @@
                 </div>
                 <img src="../static/images/joey.jpg">
                 <div class="iframe">
-                  <iframe width="560" height="315" src="https://www.youtube.com/embed/DpRfq7xHstg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <iframe src="https://www.youtube.com/embed/DpRfq7xHstg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
               </div>
             </div>
@@ -106,6 +106,10 @@ img {
   height: 800px;
   margin-bottom: 70px;
 }
+iframe {
+   width: 560px;
+   height: 315px;
+}
 
 .step {
   font-size: $font-size-big;
@@ -114,6 +118,22 @@ img {
 }
 
 .iframe { margin-bottom: 50px; }
+
+@media screen and (max-width: 992px) {
+  img, iframe {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 568px) {
+  img {
+    height: 550px;
+  }
+}
+@media screen and (max-width: 440px) {
+  img {
+    height: 400px;
+  }
+}
 
 </style>
 
