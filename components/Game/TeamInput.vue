@@ -139,6 +139,7 @@ input {
   border-radius: $border-radius;
   overflow: hidden;
   margin-bottom: 30px;
+  font-weight: bold;
   text-align: center;
   padding: 10px;
   -webkit-box-shadow: 0px 0px 4px 0px $dark-blue;

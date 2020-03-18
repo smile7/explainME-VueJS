@@ -40,7 +40,7 @@
           </circular-count-down-timer>
         </div>
         <div class="buttons">
-          <button v-if="!isTimeRunning" class="btn btn-big" @click="startTimer">Старт</button>
+          <button v-if="!isTimeRunning" class="btn btn-big mb-5" @click="startTimer">Старт</button>
           <button v-else class="btn mb-5" @click="isPaused = !isPaused">Пауза / Продължи</button>
         </div>
       </div>
@@ -190,7 +190,6 @@ export default {
       e.preventDefault();
       // key: space
       if (e.keyCode == 32) {
-        e.preventDefault();
         self.wordGuessed(self.currentTeam);
       }
       // key: escape
